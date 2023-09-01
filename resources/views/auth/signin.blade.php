@@ -40,20 +40,23 @@
   </head>
   <body>
     
-    <form class="form-signin">
+    <form class="form-signin" action="{{ route("auth.post") }}" method="POST"> @csrf
     <div class="text-center mb-4">
         <img class="mb-4" src="{{ asset('assets/img/logo.png') }}" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">GeNEP Disbursment</h1>
-        <p>Payment, especially one made by a lawyer to a third party and then charged to the client.</p>
+        <h1 class="h3 mb-3 font-weight-normal">Disbursment</h1>
+    </div>
+    @if (session()->has('msg'))
+        <div class="alert alert-{{ session()->get('action') ?? 'success' }}" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> {{ session()->get('msg') }}
+        </div>
+    @endif
+    <div class="form-label-group">
+        <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Username | Email address</label>
     </div>
 
     <div class="form-label-group">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputEmail">Email address</label>
-    </div>
-
-    <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
         <label for="inputPassword">Password</label>
     </div>
 
@@ -63,7 +66,7 @@
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2022</p>
+    <p class="mt-5 mb-3 text-muted text-center">&copy;{{ date("Y") }}</p>
     </form>
     
   </body>
