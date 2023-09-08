@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('bp_master_data', function (Blueprint $table) {
             $table->id();
+            $table->string('code',25);
+            $table->string('name',100);
+            $table->string('tin',25)->nullable();
+            $table->text('address')->nullable();
+            $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
     }

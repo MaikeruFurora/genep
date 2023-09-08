@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessPartnerController;
+use App\Http\Controllers\ChartAccountController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +28,19 @@ Route::middleware(['guest:web','preventBackHistory'])->name('auth.')->group(func
 
 Route::middleware(['auth:web','auth.user','preventBackHistory'])->name('authenticated.')->prefix('auth/')->group(function(){
 
+    // cash voucher
     Route::get('home',[HomeController::class,'index'])->name('home');
+    Route::post('home/post',[HomeController::class,'store'])->name('home.store');
+    Route::get('home/print/{cashVoucher}',[HomeController::class,'printCV'])->name('home.print');
+    // master of data (business partner)
     Route::get('bp-master',[BusinessPartnerController::class,'index'])->name('bp_master');
+    Route::post('bp-master/post',[BusinessPartnerController::class,'store'])->name('bp_master.store');
+    // chart of accounts
+    Route::get('chartAccount',[ChartAccountController::class,'index'])->name('chartAccount');
+    Route::post('chartAccount/post',[ChartAccountController::class,'store'])->name('chartAccount.store');
+    //company
+    Route::get('company',[CompanyController::class,'index'])->name('company');
+    Route::post('company/post',[CompanyController::class,'store'])->name('company.store');
     //signout
     Route::post('signout', [AuthController::class, 'signout'])->name('signout');
 });
