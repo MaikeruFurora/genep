@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Account Title</label>
-                      <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="20">
+                      <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="30">
                       @error('name')
                         <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
                       @enderror

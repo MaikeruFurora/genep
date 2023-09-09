@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BusinessPartnerController;
 use App\Http\Controllers\ChartAccountController;
 use App\Http\Controllers\CompanyController;
@@ -32,6 +33,10 @@ Route::middleware(['auth:web','auth.user','preventBackHistory'])->name('authenti
     Route::get('home',[HomeController::class,'index'])->name('home');
     Route::post('home/post',[HomeController::class,'store'])->name('home.store');
     Route::get('home/print/{cashVoucher}',[HomeController::class,'printCV'])->name('home.print');
+    Route::get('home/download-summary',[HomeController::class,'downloadSummary'])->name('home.download.summary');
+    //branch
+    Route::get('branch/{company}',[BranchController::class,'index'])->name('branch');
+    Route::post('branch/store',[BranchController::class,'store'])->name('branch.store');
     // master of data (business partner)
     Route::get('bp-master',[BusinessPartnerController::class,'index'])->name('bp_master');
     Route::post('bp-master/post',[BusinessPartnerController::class,'store'])->name('bp_master.store');

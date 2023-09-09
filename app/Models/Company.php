@@ -16,8 +16,10 @@ class Company extends Model
         'isActive'=>'boolean'
     ];
 
-    public function cashvoucher(){
-        return $this->hasMany(CashVoucher::class);
+   
+
+    public function branch(){
+        return $this->hasMany(Branch::class);
     }
     
 

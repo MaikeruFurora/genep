@@ -63,12 +63,14 @@
                         <tr>
                             <th width="3%"></th>
                             <th width="3%">@</th>
+                            <th width="3%">@</th>
                             <th>Code</th>
                             <th>Acronym</th>
                             <th>Company Name</th>
                             <th>CV</th>
                             <th>Status</th>
                             <th>Created at</th>
+                            <th>Branch</th>
                         </tr>
                     </thead>
                 </table>
@@ -81,10 +83,12 @@
 <script>
     const list      = @json($companies);
     const form      = $("#form")
+    let   branch    = '{{ route("authenticated.branch",":company") }}';
     let btnCancel   = $(".btn-warning").on('click',function(){
         window.location.reload();
     })
     const tableList = Config.tbl.DataTable({
+        orderable:false,
         data:list,
         fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             if (aData.isActive != 1) {
@@ -96,6 +100,12 @@
                 data:null,
                 render: function (data, type, row, meta) {
                     return `<span class=""> ${(meta.row + meta.settings._iDisplayStart + 1)}</span>`;
+                }
+            },
+            { 
+                data:null,
+                render: function (data, type, row, meta) {
+                    return `<a href="${branch.replace(":company",data.id)}">Branch</a>`
                 }
             },
             { 
@@ -121,6 +131,25 @@
                     return moment(data.created_at).format('MM/DD/YYYY');
                 }
             },
+            { 
+                    data:null,
+                    render:function(data){
+                    let hold=`<table class="table adjust border table-hover" width="100%">`
+                        // <tr>
+                        //     <td>#</td>
+                        //     <td>Particular</td>
+                        //     <td>Amount</td>
+                        // </tr>
+                        data.branch.forEach((item,i)=>{
+                            hold+=` <tr>
+                                        <td>${++i}</td>
+                                        <td>${item.name}</td>
+                                    </tr>`
+                        })
+                        hold+=`</table>`
+                        return hold
+                    }
+                },
         ]
     })
 

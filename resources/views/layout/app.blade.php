@@ -103,6 +103,9 @@
             right: 1px;
             width: 20px
         }
+        .select2-results__options{
+          font-size:11px !important;
+        }
     </style>
 
     <!-- Custom styles for this template -->
@@ -152,6 +155,7 @@
     <script src="{{ asset('assets/js/moment.js') }}"></script>
     <script src="{{ asset('assets/global.js') }}"></script>
     <script src="{{ asset('assets/alertify/js/alertify.js') }}"></script>
+    
     
     <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
     <!-- Required datatable js -->

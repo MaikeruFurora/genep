@@ -49,6 +49,8 @@
         size: portrait;
     }
 
+   
+
     @media print {
       thead {display: table-header-group;} 
       tfoot {display: table-footer-group;}
@@ -66,7 +68,18 @@
         margin: 0 !important;
       }
 
-      .accnt_title tr td, .adjust tr th{
+      .adjust {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+      .adjust td{
+        border: 1px solid black;
+      }
+      .adjust th{
+        border: 1px solid black;
+      }
+
+      .accnt_title tr td{
         padding: 2px 3px !important;
         margin: 0 !important;
       }
@@ -126,27 +139,27 @@
         <!--*** CONTENT GOES HERE ***-->
            <div class="row justify-content-between">
               <div class="col-8">
-                <p class="mb-0">Payment to: {{ $cashVoucher->bp_master_data->name }}</p>
+                <p class="mb-1">Payment to:&nbsp;&nbsp;{{ $cashVoucher->bp_master_data->name }}</p>
               </div>
-              <div class="col-4">
-                <p class="mb-0">CV No.: {{ $cashVoucher->cvno }}</p>
+              <div class="col-3">
+                <p class="mb-0">CV No.:&nbsp;&nbsp;{{ $cashVoucher->cvno }}</p>
               </div>
           </div>
           <div class="row justify-content-between">
             <div class="col-4">
-              <p class="mb-0">Bank: {{ $cashVoucher->cvno }}</p>
+              <p class="mb-0">Bank:&nbsp;&nbsp;{{ $cashVoucher->bank }}</p>
             </div>
             <div class="col-4">
-              <p class="mb-0">Check No.: {{ $cashVoucher->checkno }}</p>
+              <p class="mb-1">Check No.:&nbsp;&nbsp;{{ $cashVoucher->checkno }}</p>
             </div>
-            <div class="col-4">
-              <p class="mb-0">CV Date. {{ date("m/d/Y",strtotime($cashVoucher->cvdate)) }}</p>
+            <div class="col-3">
+              <p class="mb-0">CV Date:&nbsp;&nbsp;{{ date("m/d/Y",strtotime($cashVoucher->cvdate)) }}</p>
             </div>
         </div>
-        <table class="table table-bordered adjust mb-1">
+        <table class="table adjust mb-1 mt-0">
           <tr class="text-center">
-            <th width="50%">PARTICULARS</th>
-            <th width="50%" colspan="2">AMOUNT</th>
+            <td width="50%">PARTICULARS</td>
+            <td width="50%" colspan="2">AMOUNT</td>
           </tr>
           <tr>
             <td>
@@ -166,7 +179,7 @@
           @foreach ($debit as $item)
             <tr>
               <td>{{ $item->chart_account->name }}</td>
-              <td>{{ abs($item->amount) }}</td>
+              <td class="text-right">{{ number_format(abs($item->amount),2) }}</td>
               <td></td>
             </tr>
           @endforeach
@@ -174,7 +187,7 @@
             <tr>
               <td>{{ $item->chart_account->name }}</td>
               <td></td>
-              <td>{{ $item->amount }}</td>
+              <td class="text-right">{{ number_format($item->amount,2) }}</td>
             </tr>
           @endforeach
         </table>

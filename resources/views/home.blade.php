@@ -4,6 +4,10 @@
 <div class="card">
     <div class="card-header p-1 pl-2">
         <small>Request Voucher</small>
+        <div class="float-right">
+            <button class="btn btn-sm btn-secondary py-1" style="font-size: 11px"><i class="fas fa-calendar-alt pr-1"></i> Date Range (Filter)</button>
+            <a target="_blank" href="{{ route("authenticated.home.download.summary") }}" class="btn btn-sm btn-secondary py-1" style="font-size: 11px"><i class="fas fa-download pr-1"></i> Download Summary</a>
+        </div>
     </div>
     <div class="card-body border" style="font-size: 13px">
         <div class="row">
@@ -95,15 +99,21 @@
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-lg-4 col-sm-12 col-form-label">Payment to: </label>
                                 <div class="col-lg-8 col-sm-12">
-                                    <select name="bp_master_data" id="" class="custom-select custom-select-sm select2" required>
+                                    <select name="bp_master_data" id="" class="custom-select custom-select-sm select2">
                                         <option></option>
                                         @foreach ($bpMasterList as $item)
-                                            <option value="{{ $item }}">{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('bp_master_data')
                                         <small id="emailHelp" class="form-text text-muted">{{ $message }}</small>
                                     @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-lg-4 col-sm-12 col-form-label"></label>
+                                <div class="col-lg-8 col-sm-12">
+                                <input type="text" class="form-control"  name="payment_others" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -135,10 +145,10 @@
                             <div class="form-group row">
                                 <label for="" class="col-lg-4 col-sm-12 col-form-label">Store:</label>
                                 <div class="col-lg-8 col-sm-12">
-                                <select name="company" id="" class="custom-select custom-select-sm select2" required>
+                                <select name="branch" id="" class="custom-select custom-select-sm select2" required>
                                     <option></option>
-                                    @foreach ($companyList as $item)
-                                        <option value="{{ $item }}">{{ $item->name }}</option>
+                                    @foreach ($branchList as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -151,14 +161,13 @@
                             <td>AMOUNT</td>
                         </tr>
                         <tr>
-                            <td>
-                                <textarea name="particulars" class="form-control" id="" cols="10" rows="4"></textarea>
+                            <td style="padding: 0px">
+                                <textarea name="particulars"  style="margin: 0px" class="form-control " id="" cols="10" rows="4"></textarea>
                             </td>
-                            <td>
-                                <textarea name="amount" class="form-control" id="displayAmount" cols="10" rows="4"></textarea>
+                            <td style="padding: 0px">
+                                <textarea readonly name="amount"  style="margin: 0px" class="form-control amount-format" id="displayAmount" cols="10" rows="4"></textarea>
                             </td>
                         </tr>
-                    
                     </table>
                     <table class="table mt-2 table-bordered mb-0" id="datatbl">
                     <thead>
@@ -181,12 +190,12 @@
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="_debit" placeholder="">
+                                        <input type="number" class="form-control amount-format" name="_debit" placeholder="">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="_credit" placeholder="">
+                                        <input type="number" class="form-control amount-format" name="_credit" placeholder="">
                                     </div>
                                 </td>
                                 <td>
@@ -209,22 +218,25 @@
             <div class="col-7">
                 <table 
                 id="datatable" 
-                class="table table-bordered st-table dt-responsive nowrap adjust" 
-                style="width: 100%"
+                class="table table-bordered st-table dt-responsive nowrap adjust"
+                style="width: 100%;font-size:10px"
                 data-print="{{ route("authenticated.home.print",":cv") }}">
                     <thead>
                         <tr>
-                            <th width="5%">#</th>
-                            <th>Print</th>
-                            <th>CVNO</th>
-                            <th>CV Date</th>
-                            <th>Particulars</th>
-                            <th>Amount</th>
-                            <th>Payment to</th>
-                            <th>Store</th>
-                            <th>Bank</th>
-                            <th>Check No.</th>
-                            <th>Account Title </th>
+                            <td rowspan="2" width="5%">#</td>
+                            <td rowspan="2">Print</td>
+                            <td class="border">Store</td> 
+                            <td class="border" rowspan="2">CVNO</td>
+                            <td rowspan="2">CV Date</td>
+                            <td rowspan="2" width="20%">Particulars</td>
+                            <td rowspan="2">Amount</td>
+                            <td rowspan="2">Payment to</td>
+                            <td rowspan="2">Bank</td>
+                            <td rowspan="2">Check No.</td>
+                            <td rowspan="2">Account Title </td>
+                        </tr>
+                        <tr>
+                            <td></td>
                         </tr>
                     </thead>
                 </table>
@@ -236,7 +248,9 @@
 @section('moreJS')
     <!-- Datepicker -->
     <script src="{{ asset('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/jquery-number/jquery.number.js') }}"></script>
     <script>
+        $('.amount-format').number( true, 4 );
         let chartofAccount    = $('select[name=chartofAccount]')
         let debit             = $('input[name=_debit]').on('focus',function(){
                                     credit.prop('disabled', true);
@@ -266,6 +280,26 @@
             //         $('td', nRow).css('background-color', '#ffbaba','color','white');
             //     }
             // },
+            initComplete: function () {
+                this.api()
+                    .columns([2])
+                    .every(function () {
+                        var column = this;
+                        var select = $('<select class="custom-select custom-select-sm m-0" style="font-size:10px"><option value="">All</option></select>')
+                            .appendTo($(column.header()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                            });
+                        column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>');
+                            });
+                    });
+            },
             columns:[
                 { 
                     
@@ -277,9 +311,10 @@
                 { 
                     data:null,
                     render: function (data, type, row, meta) {
-                        return `<button class="btn btn-sm btn-default" value="${data.id}"><i class="fas fa-print"></i></button>`
+                        return `<button class="btn btn-sm btn-default text-center" value="${data.id}"><i class="fas fa-print"></i></button>`
                     }
                 },
+                { data:'branch.name' },
                 { data:'cvno'},
                 { 
                     orderable: false,
@@ -290,12 +325,20 @@
                 },
                 { data:'particulars',
                     // render: function (data, type, full, meta) {
-                    //     return "<div class='text-wrap width-100' style='font-size:12px'>" + data.particulars + "</div>";
+                    //     return "<div class='text-wrap width-500' style='font-size:12px'>" + data.particulars + "</div>";
                     // },
                 },
-                { data:'amount'},
-                { data:'bp_master_data.name'},
-                { data:'company.name' },
+                { data:null,
+                    render:function(data){
+                        return $.number(data.amount,4)
+                    }
+                },
+                { 
+                    data:null,
+                    render:function(data){
+                        return data.payment_others ?? data.bp_master_data.name
+                    }
+                },
                 { data:'bank'},
                 { data:'checkno'},
                 { 
@@ -311,7 +354,7 @@
                             hold+=` <tr>
                                         <td>${++i}</td>
                                         <td>${item.chart_account.name}</td>
-                                        <td>${Math.abs(item.amount)}</td>
+                                        <td>${$.number(Math.abs(item.amount),4)}</td>
                                     </tr>`
                         })
                         hold+=`</table>`
@@ -363,11 +406,11 @@
                             ${element.account.name}
                         </td>
                         <td>
-                            ${element.debit}
+                            ${element.debit!=""?$.number(element.debit,4):""}
                             <input type="hidden" name="debit[]" value="${identify(element.cnt,element.debit)+element.debit}">
                         </td>
                         <td>
-                            ${element.credit}
+                            ${element.credit!=""?$.number(element.credit,4):""}
                             <input type="hidden" name="credit[]" value="${identify(element.cnt,element.credit)+element.credit}">
                         </td>
                         <td>
@@ -377,11 +420,16 @@
                     </tr>`
                 });
 
-                console.log(array);
 
-                // console.log(array.find(val=>{
-                //     return val.cnt==1;
-                // }).amount);
+                    console.log(array);
+                const amount = array.find(val=>{
+                    return val.cnt==1;
+                })
+
+                if (amount) {
+                    console.log(amount.credit);
+                    $("#displayAmount").val(amount.credit).number(true,4)
+                }
 
                 // hold+=`
                 // <tr>

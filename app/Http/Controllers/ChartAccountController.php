@@ -24,7 +24,7 @@ class ChartAccountController extends Controller
         if ($data) {
             return back()->with(['msg'=>'Successfully saved GL account','action'=>'success']);
         }else{
-            return  back()->with(['msg'=>'Successfully saved GL account','action'=>'success']);
+            return  back()->with(['msg'=>'Failed','action'=>'danger']);
         }
     }
 

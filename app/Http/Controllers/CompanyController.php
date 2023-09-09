@@ -11,7 +11,7 @@ class CompanyController extends Controller
     public function index(){
         
         $code = Company::getCode();
-        $companies = Company::get();
+        $companies = Company::with('branch')->get();
         return view('company.index',compact('code','companies'));
 
     }

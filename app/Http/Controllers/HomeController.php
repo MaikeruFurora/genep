@@ -8,29 +8,35 @@ use App\Models\CashVoucherDetail;
 use App\Models\ChartAccount;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CashVoucherExport;
+use App\Models\Branch;
 use PDF;
 
 class HomeController extends Controller
 {
     public function index(){
         
-        $companyList       = Company::get(['id','name']);
+        $branchList         = Branch::get(['id','name']);
         $bpMasterList       = BPMasterData::get(['id','name']);
         $chartofAccountList = ChartAccount::get(['id','name','cnt']);
-        $cashVoucherList = CashVoucher::with('cashvoucher_detail','cashvoucher_detail.chart_account','company','bp_master_data')->get();
+        $cashVoucherList = CashVoucher::with('cashvoucher_detail','cashvoucher_detail.chart_account','branch','branch.company','bp_master_data')->get();
 
-        return view('home',compact('bpMasterList','chartofAccountList','companyList','cashVoucherList'));
+        return view('home',compact('bpMasterList','chartofAccountList','branchList','cashVoucherList'));
     }
 
 
     
     public function store(Request $request){
+
+        // return $request->branch;
         
         $data =  CashVoucher::create([
                 // 'code'              => CashVoucher::getVoucherCode(json_decode($request->company)->id),
-                'bp_master_data_id' => json_decode($request->bp_master_data)->id,
-                'company_id'        => json_decode($request->company)->id,
+                'bp_master_data_id' => $request->bp_master_data ?? null,
+                'branch_id'         => $request->branch,
                 'particulars'       => $request->particulars,
+                'payment_others'    => $request->payment_others,
                 'cvno'              => $request->cvno,
                 'cvdate'            => $request->cvdate,
                 'bank'              => $request->bank,
@@ -67,5 +73,12 @@ class HomeController extends Controller
         // $pdf->stream('print.voucher.pdf');
     }
     
+
+    public function downloadSummary(){
+
+        return Excel::download(new CashVoucherExport(),'Summary Report.xlsx');
+
+
+    }
 
 }
