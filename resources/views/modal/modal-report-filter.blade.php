@@ -1,5 +1,5 @@
 <!-- Modal -->
-<form action="{{ route('authenticated.home.download.summary') }}" id="modalForm" method="GET" target="_blank" autocomplete="off">
+<form action="{{ route('authenticated.voucher.download.summary') }}" id="modalForm" method="GET" target="_blank" autocomplete="off">
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
@@ -30,7 +30,7 @@
             </div>
             <div class="modal-footer py-0">
               <button type="button" style="font-size: 11px" class="btn btn-sm py-1 btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" style="font-size: 11px" class="btn btn-sm py-1 btn-primary" >Understood</button>
+              <button type="submit" style="font-size: 11px" class="btn btn-sm py-1 btn-primary" >Submit</button>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Branch;
 use App\Models\CashVoucher;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -32,12 +33,13 @@ class CashVoucherExport  implements FromView,ShouldAutoSize
     public function view() : View
     {
 
-        $dataFrom = date('Y-m-d',strtotime($this->from));
-        $dataTo   = date('Y-m-d',strtotime($this->to));
+        $dateFrom = date('Y-m-d',strtotime($this->from));
+        $dateTo   = date('Y-m-d',strtotime($this->to));
+        $branch   = Branch::find($this->branch);
         
-        $data = CashVoucher::whereBetween('cvdate',[$dataFrom,$dataTo])->where('branch_id',$this->branch)->get();
+        $data = CashVoucher::whereBetween('cvdate',[$dateFrom,$dateTo])->where('branch_id',$this->branch)->orderBy('created_at', 'asc')->get();
 
-        return view('export.summary-report',compact('data'));
+        return view('export.summary-report',compact('data','branch','dateFrom','dateTo'));
 
     }
 }

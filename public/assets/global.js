@@ -1,6 +1,6 @@
 const Config = {
     tbl:$("#datatable"),
-
+    printURL: $("meta[name='printURL']").attr("content"),
     loadToPrint:(url) =>{
         $("<iframe>")             // create a new iframe element
             .hide()               // make it invisible

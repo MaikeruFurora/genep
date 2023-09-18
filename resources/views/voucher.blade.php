@@ -5,12 +5,12 @@
     <div class="card-header p-1 pl-2">
         <small>Voucher List</small>
         <div class="float-right">
-            <button class="btn btn-sm btn-secondary py-1" style="font-size: 11px"><i class="fas fa-calendar-alt pr-1"></i> Date Range (Filter)</button>
             <button 
              data-toggle="modal" data-target="#staticBackdrop"
-            {{-- href="{{ route("authenticated.home.download.summary") }}" --}}
-            class="btn btn-sm btn-secondary py-1" 
-            style="font-size: 11px"><i class="fas fa-download pr-1"></i> Download Summary</button>
+             {{-- href="{{ route("authenticated.home.download.summary") }}" --}}
+             class="btn btn-sm btn-outline-secondary py-1"
+             name="btnDateRange"
+             style="font-size: 11px"><i class="fas fa-download pr-1"></i> Date Range Report</button>
         </div>
     </div>
     <div class="card-body border pb-2" style="font-size: 13px">
@@ -48,11 +48,19 @@
     <script src="{{ asset('assets/jquery-number/jquery.number.js') }}"></script>
     <script>
         $('.amount-format').number( true, 4 );
-    
-        let modalForm       = $("#modalForm")
-        let datatbl         = $("#datatbl")
+        
+          let modalForm       = $("#modalForm")
+          let datatbl         = $("#datatbl")
         const cashVoucherList = @json($cashVoucherList);
         const array           = []
+        $('.datepicker').datepicker({
+            language: "en",
+            autoclose: true,
+            format: "mm/dd/yyyy"
+        });
+        $("button[name=btnDateRange]").on('click',function(){
+            modalForm[0].reset()
+        })
         Config.tbl.DataTable({
             // ordering: false,
             data:cashVoucherList,
@@ -152,7 +160,6 @@
         $(document).on("click",".btn-default",function(){
             Config.loadToPrint(Config.tbl.attr("data-print").replace(":cv",$(this).val()))
         })
-
 
         modalForm.on('submit',function(){
             setTimeout(() => {

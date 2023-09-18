@@ -41,10 +41,10 @@
   <body>
     
     <form class="form-signin" action="{{ route("auth.post") }}" method="POST"> @csrf
-    <div class="text-center mb-4">
+    {{-- <div class="text-center mb-4">
         <img class="mb-4" src="{{ asset('assets/img/logo.png') }}" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Disbursment</h1>
-    </div>
+    </div> --}}
     @if (session()->has('msg'))
         <div class="alert alert-{{ session()->get('action') ?? 'success' }}" role="alert">
             <i class="fas fa-exclamation-triangle"></i> {{ session()->get('msg') }}
@@ -60,11 +60,11 @@
         <label for="inputPassword">Password</label>
     </div>
 
-    <div class="checkbox mb-3">
+    {{-- <div class="checkbox mb-3">
         <label>
         <input type="checkbox" value="remember-me"> Remember me
         </label>
-    </div>
+    </div> --}}
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted text-center">&copy;{{ date("Y") }}</p>
     </form>

@@ -56,16 +56,16 @@ class HomeController extends Controller
 
         }
 
-        return back()->with(['msg'=>'Successfully saved Data','action'=>'success']);
+        return back()->with([
+                'msg'=>'Successfully saved Data',
+                'action'=>'success',
+                'id'=>$data->id
+            ]);
 
     }
 
     
 
-    public function downloadSummary(Request $request){
-
-        return Excel::download(new CashVoucherExport($request->from,$request->to,$request->branch),'Summary Report.xlsx');
-
-    }
+   
 
 }

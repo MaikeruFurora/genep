@@ -59,7 +59,7 @@
       
       body {
           margin: 0;
-          font-family: 'Arial';
+          font-family: 'Century Gothic';
           font-size: 16px;
       }
 
@@ -70,13 +70,13 @@
 
       .adjust {
         border-collapse: collapse;
-        border: 1px solid black;
+        border: .8px solid black;
       }
       .adjust td{
-        border: 1px solid black;
+        border: .8px solid black;
       }
       .adjust th{
-        border: 1px solid black;
+        border: .8px solid black;
       }
 
       .accnt_title tr td{
@@ -103,7 +103,7 @@
 
   <div class="page-header">
         <div class="text-center">
-          <h4>C A S H  V O U C H E R</h4>
+          <h5>C A S H  V O U C H E R</h5>
         </div>
   </div>
   <div class="page-footer">
@@ -120,7 +120,7 @@
     </div> --}}
   </div>
 
-  <table style="width: 100%;" style="font-size: 12px">
+  <table style="width: 100%;" style="font-size: 11px">
 
     <thead>
       <tr>
@@ -166,7 +166,7 @@
               <p>{{ $cashVoucher->particulars }}</p>
             </td>
             <td colspan="2" style="vertical-align:middle;text-align:right">
-              <p class="font-size:40px">{{ number_format($cashVoucher->amount,2) }}</p>
+              <p class="font-size:40px"><h3>{{ number_format($cashVoucher->amount,2) }}</h3></p>
             </td>
           </tr>
           <tr>
@@ -185,21 +185,21 @@
             </tr>
             @if ($item->inputVat!=0)
             <tr>
-              <td>Input Vat</td>
+              <td>INPUT VAT</td>
               <td>{{ number_format($item->inputVat,2) }}</td>
               <td></td>
             </tr>
             @endif
             @if ($item->ewTax!=0)
             <tr>
-              <td>EwTax {{ $item->ewTaxPercent }} %</td>
+              <td>EWTAX {{ $item->ewTaxPercent }} %</td>
               <td></td>
               <td class="text-right">{{ number_format($item->ewTax,2) }}</td>
             </tr>
             @endif
             @endforeach
             <tr>
-              <td>Cash In Bank</td>
+              <td>CASH IN BANK</td>
               <td></td>
               <td class="text-right">{{ number_format($cashVoucher->amount,2) }}</td>
             </tr>
@@ -222,10 +222,10 @@
             <p>as full payment of the above account</p>
           </div>
           <div class="col-3 text-center">
-            <p class="mt-3" style="border-top:1px solid black;font-size:15px;margin-bottom:3px">A. BRUSOLA</p>
+            <p class="mt-3" style="border-top:0.7px solid black;font-size:15px;margin-bottom:3px">A. BRUSOLA</p>
           </div>
           <div class="col-3 text-center">
-            <p class="mt-3" style="border-top:1px solid black;font-size:15px;margin-bottom:3px">ANGIE</p>
+            <p class="mt-3" style="border-top:0.7px solid black;font-size:15px;margin-bottom:3px">ANGIE</p>
           </div>
         </div>
         <div class="row justify-content-between">
@@ -241,7 +241,7 @@
             <p class="mb-0 mt-3">(Print Name & Sign)</p>
           </div>
           <div class="col-4 text-center">
-            <p class="mt-3" style="border-top:1px solid black;font-size:15px;margin-bottom:3px">ANNIKA LAO</p>
+            <p class="mt-3" style="border-top:0.7px solid black;font-size:15px;margin-bottom:3px">ANNIKA LAO</p>
           </div>
           <div class="col-2 text-center"></div>
         </div>

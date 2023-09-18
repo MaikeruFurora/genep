@@ -14,7 +14,9 @@
             <div class="col-12">
                 <small>Petty cash is a small amount of discretionary funds in the form of cash used for expenditures where it is not sensible to make any disbursement by cheque, because of the inconvenience and costs of writing, signing, and then cashing the cheque</small>
                 @if (session()->has('msg'))
-                    <div class="alert alert-{{ session()->get('action') ?? 'success' }} mt-3" role="alert">
+                    <div class="alert alert-{{ session()->get('action') ?? 'success' }} mt-3" role="alert"
+                        data-print="{{ route("authenticated.voucher.print",":cv") }}"
+                        >
                         <i class="fas fa-check-circle"></i> {{ session()->get('msg') }}
                     </div>
                 @endif
@@ -172,7 +174,7 @@
                         </tbody>
                     </table>
                     <div class="form-group mt-3 mb-0">
-                        <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
+                        <button type="submit" class="btn btn-secondary btn-sm" disabled>Submit</button>
                         <button type="reset" class="btn btn-warning btn-sm" onClick="window.location.href=window.location.href">Cancel</button>
                     </div>
                </form>
@@ -188,6 +190,7 @@
     <script src="{{ asset('assets/jquery-number/jquery.number.js') }}"></script>
     <script>
         $('.amount-format').number( true, 2 );
+        let printValue      = "{{ session()->get('id') ?? '' }}"
         let chartofAccount  = $('select[name=chartofAccount]')
         let grossAmount     = $('input[name=grossAmount]')
         let netAmount       = $('input[name=netAmount]')
@@ -202,6 +205,14 @@
                                 });
         let datatbl         = $("#datatbl")
       const array           = []
+        
+        window.onload = () =>{
+
+            if (printValue!="") {
+                Config.loadToPrint(Config.printURL.replace(":cv",printValue))
+            }
+
+        }
 
         $('.select2').select2({
             // closeOnSelect: false
@@ -236,6 +247,7 @@
         })
 
         $("#btnAdd").on('click',function(){
+            
             console.log(chartofAccount.val());
             // console.log(array.find((val) => val.id === JSON.parse(chartofAccount.val()).id));
             // if (!array.find((val) => val.id == JSON.parse(chartofAccount.val()).id)) {}
@@ -251,6 +263,7 @@
             // }
             //pass value data
 
+            $('button[type="submit"]').attr("disabled",(!array.length>0))
             console.log(array);
 
             tblData(array)
@@ -335,16 +348,18 @@
         $(document).on('click','.fa-times-circle',function(){
             alertify.confirm('Are you sure you want to remove this row?', function(){
                 array.splice($(this).attr("id"),1)
-                if (array.length==0) { $("#displayAmount").val('') }
+                if (array.length==0) { 
+                    $("#displayAmount").val('') 
+                    $('button[type="submit"]').attr("disabled",true)
+                }
                 tblData(array)
             },function(){
                 alertify.error('Cancelled');
             })
-
-           
         })
 
-
+        
+        
 
     </script>
 @endsection
