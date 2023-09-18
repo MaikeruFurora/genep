@@ -10,74 +10,61 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CashVoucherExport;
+use App\Helper\Helper;
 use App\Models\Branch;
 use PDF;
 
 class HomeController extends Controller
 {
     public function index(){
-        
         $branchList         = Branch::get(['id','name']);
         $bpMasterList       = BPMasterData::get(['id','name']);
         $chartofAccountList = ChartAccount::get(['id','name','cnt']);
-        $cashVoucherList = CashVoucher::with('cashvoucher_detail','cashvoucher_detail.chart_account','branch','branch.company','bp_master_data')->get();
-
-        return view('home',compact('bpMasterList','chartofAccountList','branchList','cashVoucherList'));
+        return view('home',compact('bpMasterList','chartofAccountList','branchList'));
     }
 
 
     
     public function store(Request $request){
 
-        // return $request->branch;
+        // return $request->all();
         
         $data =  CashVoucher::create([
                 // 'code'              => CashVoucher::getVoucherCode(json_decode($request->company)->id),
-                'bp_master_data_id' => $request->bp_master_data ?? null,
-                'branch_id'         => $request->branch,
-                'particulars'       => $request->particulars,
-                'payment_others'    => $request->payment_others,
-                'cvno'              => $request->cvno,
-                'cvdate'            => $request->cvdate,
-                'bank'              => $request->bank,
-                'checkno'           => $request->checkno,
-                'amount'            => $request->amount,
+                'bp_master_data_id' => $request->input('bp_master_data') ?? null,
+                'branch_id'         => $request->input('branch'),
+                'particulars'       => $request->input('particulars'),
+                'payment_others'    => $request->input('payment_others'),
+                'cvno'              => $request->input('cvno'),
+                'cvdate'            => $request->input('cvdate'),
+                'bank'              => $request->input('bank'),
+                'checkno'           => $request->input('checkno'),
+                'amount'            => Helper::cleanNumberByFormat($request->amount)
         ]);
 
-        $merge =  (array_merge(
-            array_filter($request->debit, function($value) {return !is_null($value);}),
-            array_filter($request->credit, function($value) {return !is_null($value);}))
-        );
 
-        foreach ($request->account as $key => $value) {
+        foreach ($request->input('chartAccount') as $key => $value) {
         
-        CashVoucherDetail::create([
+            CashVoucherDetail::create([
                 'cash_voucher_id'   => $data->id,
-                'chart_account_id'  => $request->input('account')[$key],
-                'amount'            => $merge[$key],
+                'chart_account_id'  => $value,
+                'amount'            => Helper::cleanNumberByFormat($request->input('netAmount')[$key]),
+                'inputVat'          => Helper::cleanNumberByFormat($request->input('inputVat')[$key]),
+                'ewTaxPercent'      => Helper::cleanNumberByFormat($request->input('ewTaxPercent')[$key]),
+                'ewTax'             => Helper::cleanNumberByFormat($request->input('ewTax')[$key]),
             ]);
+
         }
 
-        return back()->with(['msg'=>'Successfully saved GL account','action'=>'success']);
+        return back()->with(['msg'=>'Successfully saved Data','action'=>'success']);
 
     }
 
-
-    public function printCV(CashVoucher $cashVoucher){
-
-        $debit = $cashVoucher->cashvoucher_detail->where("amount",'<',0);
-        $credit = $cashVoucher->cashvoucher_detail->where("amount",'>',0);
-
-        return view("print.voucher",compact('cashVoucher','debit','credit'));
-        // $pdf = PDF::loadView('print.voucher');
-        // $pdf->stream('print.voucher.pdf');
-    }
     
 
-    public function downloadSummary(){
+    public function downloadSummary(Request $request){
 
-        return Excel::download(new CashVoucherExport(),'Summary Report.xlsx');
-
+        return Excel::download(new CashVoucherExport($request->from,$request->to,$request->branch),'Summary Report.xlsx');
 
     }
 

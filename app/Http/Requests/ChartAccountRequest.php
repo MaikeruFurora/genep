@@ -26,8 +26,8 @@ class ChartAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|unique:chart_accounts,code,'.$this->id,
-            'name' => 'required|max:30|unique:chart_accounts,name,'.$this->id,
+            'code'     => 'required|unique:chart_accounts,code,'.$this->id,
+            'name'     => 'required|max:30|unique:chart_accounts,name,'.$this->id,
         ];
     }
 }

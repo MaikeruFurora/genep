@@ -31,7 +31,7 @@ class ChartAccountController extends Controller
     public function requestInput($request){
         return [
             'code'    => $request->code,
-            'name'    => $request->name,
+            'name'    => strtoupper($request->name),
             'isActive'=> !$request->has('isActive'),
         ];
     }

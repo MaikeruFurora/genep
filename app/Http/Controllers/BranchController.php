@@ -33,7 +33,7 @@ class BranchController extends Controller
     public function requestInput($request){
         return [
             'company_id'  => $request->company,
-            'name'        => $request->name
+            'name'        => strtoupper($request->name),
         ];
     }
 }

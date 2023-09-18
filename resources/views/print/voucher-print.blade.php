@@ -80,7 +80,7 @@
       }
 
       .accnt_title tr td{
-        padding: 2px 3px !important;
+        padding: 1px 3px !important;
         margin: 0 !important;
       }
 
@@ -139,7 +139,7 @@
         <!--*** CONTENT GOES HERE ***-->
            <div class="row justify-content-between">
               <div class="col-8">
-                <p class="mb-1">Payment to:&nbsp;&nbsp;{{ $cashVoucher->bp_master_data->name }}</p>
+                <p class="mb-1">Payment to:&nbsp;&nbsp;{{ $cashVoucher->bp_master_data->name ?? $cashVoucher->payment_others }}</p>
               </div>
               <div class="col-3">
                 <p class="mb-0">CV No.:&nbsp;&nbsp;{{ $cashVoucher->cvno }}</p>
@@ -176,20 +176,34 @@
           </tr>
         </table>
         <table class="table table-borderless accnt_title">
-          @foreach ($debit as $item)
+          
+          @foreach ($cashVoucher->cashvoucher_detail as $item)
             <tr>
-              <td>{{ $item->chart_account->name }}</td>
-              <td class="text-right">{{ number_format(abs($item->amount),2) }}</td>
+              <td width="50%">{{ $item->chart_account->name }}</td>
+              <td width="25%"class="text">{{ number_format($item->amount,2) }}</td>
+              <td width="25%"></td>
+            </tr>
+            @if ($item->inputVat!=0)
+            <tr>
+              <td>Input Vat</td>
+              <td>{{ number_format($item->inputVat,2) }}</td>
               <td></td>
             </tr>
-          @endforeach
-          @foreach ($credit as $item)
+            @endif
+            @if ($item->ewTax!=0)
             <tr>
-              <td>{{ $item->chart_account->name }}</td>
+              <td>EwTax {{ $item->ewTaxPercent }} %</td>
               <td></td>
-              <td class="text-right">{{ number_format($item->amount,2) }}</td>
+              <td class="text-right">{{ number_format($item->ewTax,2) }}</td>
             </tr>
-          @endforeach
+            @endif
+            @endforeach
+            <tr>
+              <td>Cash In Bank</td>
+              <td></td>
+              <td class="text-right">{{ number_format($cashVoucher->amount,2) }}</td>
+            </tr>
+       
         </table>
         <div class="row justify-content-between">
           <div class="col-6">
@@ -204,7 +218,7 @@
         </div>
         <div class="row justify-content-between">
           <div class="col-5">
-            <p class="mb-0">{{ $cashVoucher->bp_master_data->name }}</p>
+            <p class="mb-0">{{ $cashVoucher->bp_master_data->name ?? $cashVoucher->payment_others  }}</p>
             <p>as full payment of the above account</p>
           </div>
           <div class="col-3 text-center">

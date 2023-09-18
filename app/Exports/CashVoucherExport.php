@@ -9,13 +9,35 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class CashVoucherExport  implements FromView,ShouldAutoSize
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+
+    public $from;
+
+    public $to;
+
+    public $branch;
+
+    public function __construct(String $from, String $to, String $branch)
+    {
+
+        $this->from = $from;
+
+        $this->to = $to;
+
+        $this->branch = $branch;
+
+
+    }
+
+
     public function view() : View
     {
 
-        return view('export.summary-report');
+        $dataFrom = date('Y-m-d',strtotime($this->from));
+        $dataTo   = date('Y-m-d',strtotime($this->to));
+        
+        $data = CashVoucher::whereBetween('cvdate',[$dataFrom,$dataTo])->where('branch_id',$this->branch)->get();
+
+        return view('export.summary-report',compact('data'));
 
     }
 }

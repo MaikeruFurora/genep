@@ -24,11 +24,11 @@
                       @enderror
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Account Title</label>
-                      <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="30">
-                      @error('name')
-                        <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
-                      @enderror
+                        <label for="exampleInputPassword1">Account Title</label>
+                        <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="30">
+                        @error('name')
+                          <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1" name="isActive">
@@ -45,6 +45,7 @@
                             <th width="3%"></th>
                             <th width="3%">@</th>
                             <th>Code</th>
+                            <th>Category</th>
                             <th>Account title</th>
                             <th>Status</th>
                             <th>Created at</th>
@@ -105,6 +106,7 @@
             let data = tableList.row($(this).closest('tr')).data();
             Object.keys(data).forEach(val => {
                 form.find('input[name='+val+']').val(data[val])
+                form.find('select[name='+val+']').val(data[val])
             });
             form.find('input[name=isActive]').prop('checked',!data.isActive)
             

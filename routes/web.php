@@ -6,6 +6,7 @@ use App\Http\Controllers\BusinessPartnerController;
 use App\Http\Controllers\ChartAccountController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VoucherController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,12 +29,16 @@ Route::middleware(['guest:web','preventBackHistory'])->name('auth.')->group(func
 
 
 Route::middleware(['auth:web','auth.user','preventBackHistory'])->name('authenticated.')->prefix('auth/')->group(function(){
-
     // cash voucher
     Route::get('home',[HomeController::class,'index'])->name('home');
     Route::post('home/post',[HomeController::class,'store'])->name('home.store');
-    Route::get('home/print/{cashVoucher}',[HomeController::class,'printCV'])->name('home.print');
+    
     Route::get('home/download-summary',[HomeController::class,'downloadSummary'])->name('home.download.summary');
+
+    //voucher
+    Route::get('voucher',[VoucherController::class,'index'])->name('voucher');
+    Route::get('voucher/print/{cashVoucher}',[VoucherController::class,'printCV'])->name('voucher.print');
+
     //branch
     Route::get('branch/{company}',[BranchController::class,'index'])->name('branch');
     Route::post('branch/store',[BranchController::class,'store'])->name('branch.store');

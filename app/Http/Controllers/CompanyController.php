@@ -32,8 +32,8 @@ class CompanyController extends Controller
     public function requestInput($request){
         return [
             'code'          => $request->code,
-            'acronym'      => $request->acronym,
-            'name'          => $request->name,
+            'acronym'       => $request->acronym,
+            'name'          => strtoupper($request->name),
             'cvnumber_start'=> $request->cvnumber_start,
             'isActive'      => !$request->has('isActive'),
         ];

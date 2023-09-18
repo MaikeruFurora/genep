@@ -9,3 +9,7 @@ const Config = {
     },
     
 }
+
+$('input').on('click',function(){
+    $(this).select();
+})

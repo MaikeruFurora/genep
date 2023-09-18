@@ -26,8 +26,8 @@ class CompanyRequest extends FormRequest
     {
         return [
             'code' => 'required|unique:companies,code,'.$this->id,
-            'name' => 'required|max:20|unique:companies,name,'.$this->id,
-            'acronym' => 'required|max:20|unique:companies,acronym,'.$this->id,
+            'name' => 'required|max:100|unique:companies,name,'.$this->id,
+            'acronym' => 'required|max:25|unique:companies,acronym,'.$this->id,
         ];
     }
 }

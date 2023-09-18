@@ -19,7 +19,10 @@ return new class extends Migration
             $table->foreign('cash_voucher_id')->references('id')->on('cash_vouchers')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('chart_account_id');
             $table->foreign('chart_account_id')->references('id')->on('chart_accounts')->onDelete('cascade')->onUpdate('cascade');
-            $table->double('amount');
+            $table->double('amount',18,4);
+            $table->double('ewTaxPercent',18,4);
+            $table->double('inputVat',18,4);
+            $table->double('ewTax',18,4);
             $table->timestamps();
         });
     }

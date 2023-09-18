@@ -26,13 +26,13 @@
                     <div class="form-group">
                       <label for="exampleInputPassword1">Acronym</label>
                       <input type="text" class="form-control form-control-sm" name="acronym" id="exampleInputPassword1" maxlength="20">
-                      @error('name')
+                      @error('acronym')
                         <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
                       @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Company Name</label>
-                        <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="20">
+                        <input type="text" class="form-control form-control-sm" name="name" id="exampleInputPassword1" maxlength="100">
                         @error('name')
                           <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
                         @enderror

@@ -11,6 +11,11 @@ class CashVoucher extends Model
 
     protected $guarded=[];
 
+    public $casts=[
+        'inputVat' =>'integer',
+        'ewTax'    =>'integer',
+    ];
+
     public function branch(){
         return $this->belongsTo(Branch::class);
     }
