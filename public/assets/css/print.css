@@ -1,0 +1,105 @@
+/* body
+    {
+        background-image:url('https://media.glassdoor.com/sqll/561082/arvin-international-marketing-squarelogo-1637307639526.png');
+        background-repeat:repeat-y;
+        background-position: center;
+        background-attachment:fixed;
+        background-size:100%;
+    } */
+    /* Styles go here */
+
+    .page-header, .page-header-space {
+        height: 40px;
+      }
+  
+      .page-footer, .page-footer-space {
+        height: 100px;
+      }
+  
+      .page-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      /* border-top: 1px solid black; for demo */
+      /* background: yellow; for demo */
+      }
+  
+      .page-header {
+      position: fixed;
+      top: 0mm;
+      width: 100%;
+      /* border-bottom: 1px solid black;  */
+      /* for demo */
+      /* background: yellow; for demo */
+      }
+  
+      /* .page {
+      page-break-after: always;
+      } */
+  
+      @page {
+          margin: 10mm;
+          size: 8.5in 13in;
+          size: portrait;
+      }
+  
+  
+      @media print {
+        thead {display: table-header-group;} 
+        tfoot {display: table-footer-group;}
+      
+        button {display: none;}
+  
+        .page-header h5{
+          font-weight: 500;
+        font-family: Courier , Helvetica, sans-serif;
+          /* letter-spacing: 2px; */
+        }
+  
+        * {
+        font-size: 13.3333;
+        font-weight: 500;
+       font-family: Courier , Helvetica, sans-serif;
+          /* letter-spacing: 2px; */
+          /* font-size: 1.5em; */
+          /* font-stretch: expanded; */
+        }
+  
+        body {
+            margin: 0;
+            font-size: 13.3333;
+            
+        }
+  
+        .adjust tr td, .adjust tr th{
+          padding: 4px 6px !important;
+          margin: 0 !important;
+        }
+  
+        .adjust {
+          border-collapse: collapse;
+          border: .8px solid black;
+         
+        }
+        .adjust td{
+          border: .8px solid black;
+        }
+        .adjust th{
+          border: .8px solid black;
+        }
+  
+        .accnt_title tr td{
+          padding: 1px 3px !important;
+          margin: 0 !important;
+        }
+  
+        .foramount tr td{
+          vertical-align: middle;
+          font-size: 40px
+        }
+      }
+  
+      p{
+        font-size: 16px
+      }
+  

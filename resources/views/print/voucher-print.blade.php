@@ -2,104 +2,14 @@
 <html>
 
 <head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-  <style>
-     /* body
-    {
-        background-image:url('https://media.glassdoor.com/sqll/561082/arvin-international-marketing-squarelogo-1637307639526.png');
-        background-repeat:repeat-y;
-        background-position: center;
-        background-attachment:fixed;
-        background-size:100%;
-    } */
-    /* Styles go here */
-
-    .page-header, .page-header-space {
-      height: 40px;
-    }
-
-    .page-footer, .page-footer-space {
-      height: 100px;
-    }
-
-    .page-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    /* border-top: 1px solid black; for demo */
-    /* background: yellow; for demo */
-    }
-
-    .page-header {
-    position: fixed;
-    top: 0mm;
-    width: 100%;
-    /* border-bottom: 1px solid black;  */
-    /* for demo */
-    /* background: yellow; for demo */
-    }
-
-    /* .page {
-    page-break-after: always;
-    } */
-
-    @page {
-        margin: 10mm;
-        size: 8.5in 13in;
-        size: portrait;
-    }
-
-   
-
-    @media print {
-      thead {display: table-header-group;} 
-      tfoot {display: table-footer-group;}
-    
-      button {display: none;}
-      
-      body {
-          margin: 0;
-          font-family: 'Century Gothic';
-          font-size: 16px;
-      }
-
-      .adjust tr td, .adjust tr th{
-        padding: 4px 6px !important;
-        margin: 0 !important;
-      }
-
-      .adjust {
-        border-collapse: collapse;
-        border: .8px solid black;
-      }
-      .adjust td{
-        border: .8px solid black;
-      }
-      .adjust th{
-        border: .8px solid black;
-      }
-
-      .accnt_title tr td{
-        padding: 1px 3px !important;
-        margin: 0 !important;
-      }
-
-      .foramount tr td{
-        vertical-align: middle;
-        font-size: 40px
-      }
-    }
-
-    p{
-      font-size: 16px
-    }
-
-   
-
-  </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/print.css') }}" media="print">
 </head>
 
-<body onload="window.print()">
+<body onload="window.print();return false;">
 
   <div class="page-header">
         <div class="text-center">
@@ -120,7 +30,7 @@
     </div> --}}
   </div>
 
-  <table style="width: 100%;" style="font-size: 11px">
+  <table style="width: 100%;" style="font-size: 9px">
 
     <thead>
       <tr>
@@ -166,13 +76,13 @@
               <p>{{ $cashVoucher->particulars }}</p>
             </td>
             <td colspan="2" style="vertical-align:middle;text-align:right">
-              <p class="font-size:40px"><h3>{{ number_format($cashVoucher->amount,2) }}</h3></p>
+              <p style="font-size:25px">{{ number_format($cashVoucher->amount,2) }}</p>
             </td>
           </tr>
           <tr>
-            <th>Account Title</th>
-            <th class="text-center">Debit</th>
-            <th class="text-center">Credit</th>
+            <td>Account Title</td>
+            <td class="text-center">Debit</td>
+            <td class="text-center">Credit</td>
           </tr>
         </table>
         <table class="table table-borderless accnt_title">
@@ -180,19 +90,19 @@
           @foreach ($cashVoucher->cashvoucher_detail as $item)
             <tr>
               <td width="50%">{{ $item->chart_account->name }}</td>
-              <td width="25%"class="text">{{ number_format($item->amount,2) }}</td>
-              <td width="25%"></td>
+              <td width="23%" class="text-right">{{ number_format($item->amount,2) }}</td>
+              <td width="28%"></td>
             </tr>
             @if ($item->inputVat!=0)
             <tr>
               <td>INPUT VAT</td>
-              <td>{{ number_format($item->inputVat,2) }}</td>
+              <td class="text-right">{{ number_format($item->inputVat,2) }}</td>
               <td></td>
             </tr>
             @endif
             @if ($item->ewTax!=0)
             <tr>
-              <td>EWTAX {{ $item->ewTaxPercent }} %</td>
+              <td class="text-right">EWTAX {{ $item->ewTaxPercent }} %</td>
               <td></td>
               <td class="text-right">{{ number_format($item->ewTax,2) }}</td>
             </tr>

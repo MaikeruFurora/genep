@@ -158,7 +158,7 @@
         })
         
         $(document).on("click",".btn-default",function(){
-            Config.loadToPrint(Config.tbl.attr("data-print").replace(":cv",$(this).val()))
+           window.open(Config.tbl.attr("data-print").replace(":cv",$(this).val()),'_blank')
         })
 
         modalForm.on('submit',function(){

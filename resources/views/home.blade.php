@@ -209,7 +209,7 @@
         window.onload = () =>{
 
             if (printValue!="") {
-                Config.loadToPrint(Config.printURL.replace(":cv",printValue))
+                window.open(Config.printURL.replace(":cv",printValue), '_blank');
             }
 
         }

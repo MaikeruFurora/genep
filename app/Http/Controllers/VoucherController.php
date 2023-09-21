@@ -7,6 +7,7 @@ use App\Models\CashVoucher;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CashVoucherExport;
+use PDF;
 
 class VoucherController extends Controller
 {
@@ -21,7 +22,11 @@ class VoucherController extends Controller
         //  $debit = $cashVoucher->cashvoucher_detail;
         // $credit = $cashVoucher->cashvoucher_detail->get(['ewTax']);
 
-        return view("print.voucher-print",compact('cashVoucher'));
+        // return view("print.voucher-print",compact('cashVoucher'));
+
+        $pdf = PDF::loadView('print/voucher-pdf',compact('cashVoucher'));
+
+        return $pdf->stream('voucher-pdf.php');
 
     }
 
