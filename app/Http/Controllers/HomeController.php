@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index(){
         $branchList         = Branch::get(['id','name']);
         $bpMasterList       = BPMasterData::get(['id','name']);
-        $chartofAccountList = ChartAccount::get(['id','name','cnt']);
+        $chartofAccountList = ChartAccount::get(['id','name','cnt','type']);
         return view('home',compact('bpMasterList','chartofAccountList','branchList'));
     }
 

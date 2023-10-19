@@ -112,7 +112,7 @@
                                     <select name="chartofAccount" id="" class="custom-select custom-select-sm select2">
                                         <option></option>
                                         @foreach ($chartofAccountList as $item)
-                                            <option value="{{ $item }}" id="{{ $item->cnt }}">{{ $item->name }}</option>
+                                            <option value="{{ $item }}" id="{{ $item->cnt }}">{{ $item->name }} - {{ $item->type }}</option>
                                         @endforeach
                                     </select>
                                     </div>

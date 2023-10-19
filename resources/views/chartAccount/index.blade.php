@@ -30,6 +30,17 @@
                           <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Type</label>
+                        <select name="type" id="" class="custom-select custom-select-sm">
+                            <option value="EXT">EXEMPT TRANSACTIONS</option>
+                            <option value="VTP">VATABLE TRANSACTIONS - PURCHASES</option>
+                            <option value="VTS">VATABLE TRANSACTIONS - SERVICES</option>
+                        </select>
+                        @error('name')
+                          <small id="emailHelp" class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     <div class="form-group form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1" name="isActive">
                       <label class="form-check-label" for="exampleCheck1">Disable Account</label>
@@ -45,8 +56,8 @@
                             <th width="3%"></th>
                             <th width="3%">@</th>
                             <th>Code</th>
-                            <th>Category</th>
                             <th>Account title</th>
+                            <th>Type</th>
                             <th>Status</th>
                             <th>Created at</th>
                         </tr>
@@ -87,6 +98,27 @@
                 },
                 { data:'code' },
                 { data:'name' },
+                { 
+                    data:null,
+                    "orderable": false,
+                    render: function (data, type, row, meta) {
+                        switch (data.type) {
+                            case 'EXT':
+                                return 'EXEMPT TRANSACTIONS'
+                            break;
+                            case 'VTP':
+                                return 'VATABLE TRANSACTIONS - PURCHASES'
+                            break;
+                            case 'VTS':
+                                return 'VATABLE TRANSACTIONS - SERVICES'
+                            break;
+                        
+                            default:
+                                    return ''
+                                break;
+                        }
+                    }
+                },
                 {
                     data:null,
                     render:function(data){
@@ -94,11 +126,12 @@
                     }
                 },
                 {
-                    data:'isActive',
+                    data:null,
                     render:function(data){
                         return moment(data.created_at).format('MM/DD/YYYY');
                     }
                 },
+                
             ]
         })
 
