@@ -57,9 +57,10 @@ class HomeController extends Controller
         }
 
         return back()->with([
-                'msg'=>'Successfully saved Data',
-                'action'=>'success',
-                'id'=>$data->id
+                'msg'       => 'Successfully saved Data',
+                'action'    => 'success',
+                'id'        => $data->id,
+                'checkno'   => $data->checkno,
             ]);
 
     }

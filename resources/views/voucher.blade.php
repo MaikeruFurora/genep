@@ -132,7 +132,12 @@
                     }
                 },
                 { data:'bank'},
-                { data:'checkno'},
+                { 
+                    data:null,
+                    render:function(data){
+                        return data.checkno!=null?`<a href="${Config.printCheque.replace(":cv",data.id)}" target='_blank'>${data.checkno}</a>`:''
+                    }
+                },
                 { 
                     data:null,
                     render:function(data){
@@ -158,7 +163,7 @@
         })
         
         $(document).on("click",".btn-default",function(){
-           window.open(Config.tbl.attr("data-print").replace(":cv",$(this).val()),'_blank')
+            window.open(Config.prinVoucher.replace(":cv",$(this).val()),'_blank')
         })
 
         modalForm.on('submit',function(){

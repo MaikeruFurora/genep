@@ -15,7 +15,8 @@
                 <small>Petty cash is a small amount of discretionary funds in the form of cash used for expenditures where it is not sensible to make any disbursement by cheque, because of the inconvenience and costs of writing, signing, and then cashing the cheque</small>
                 @if (session()->has('msg'))
                     <div class="alert alert-{{ session()->get('action') ?? 'success' }} mt-3" role="alert"
-                        data-print="{{ route("authenticated.voucher.print",":cv") }}"
+                        data-voucher="{{ route("authenticated.voucher.print",":cv") }}"
+                        data-cheque="{{ route("authenticated.cheque.print",":cv") }}"
                         >
                         <i class="fas fa-check-circle"></i> {{ session()->get('msg') }}
                     </div>
@@ -191,6 +192,7 @@
     <script>
         $('.amount-format').number( true, 2 );
         let printValue      = "{{ session()->get('id') ?? '' }}"
+        let checkno         = "{{ session()->get('checkno') ?? '' }}"
         let chartofAccount  = $('select[name=chartofAccount]')
         let grossAmount     = $('input[name=grossAmount]')
         let netAmount       = $('input[name=netAmount]')
@@ -209,7 +211,10 @@
         window.onload = () =>{
 
             if (printValue!="") {
-                window.open(Config.printURL.replace(":cv",printValue), '_blank');
+                if (checkno) {
+                    window.open(Config.printCheque.replace(":cv",printValue), '_blank');
+                }
+                window.open(Config.prinVoucher.replace(":cv",printValue), '_blank');
             }
 
         }

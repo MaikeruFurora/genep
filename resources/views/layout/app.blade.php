@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="printURL" content="{{ route("authenticated.voucher.print",":cv") }}">
+    <meta name="prinVoucher" content="{{ route("authenticated.voucher.print",":cv") }}">
+    <meta name="printCheque" content="{{ route("authenticated.cheque.print",":cv") }}">
     <title>Bootstrap v4.6</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/starter-template/">
     <!-- Bootstrap core CSS -->

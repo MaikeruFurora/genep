@@ -18,7 +18,7 @@ class Helper{
 
 
 
-    public static function numberToWord($num,$currency=null) {
+    public static function numberToWord($num) {
  
         $ones = array(
                 1 => "one",
@@ -110,32 +110,21 @@ class Helper{
             $words .= $unit??' ';
             
             if($decnum > 0) {
-                $words .= " and ";
+                $words .= "and ";
             if($decnum < 20) {
                 // $words .= $ones[intval($decnum)];
                 $words .= $decnum."/100 ";
             } elseif($decnum < 100) {
                 // $words .= $tens[substr($decnum,0,1)].$decnum."/100 ";
                 $words .= $decnum."/100 ";
-                if(substr($decnum,1,1) != 0) {
-                    $words .= " ".$ones[substr($decnum,1,1)];
-                }
+                // if(substr($decnum,1,1) != 0) {
+                //     $words .= " ".$ones[substr($decnum,1,1)];
+                // }
             }
                 $words .= $subunit??' ';
             }
-
-            switch (true) {
-                case (strtoupper($currency)=="PHP"):
-                        return $words.' Pesos only';
-                    break;
-                case (strtoupper($currency)=="USD"):
-                        return 'U.S Dollar '. $words .' only';
-                    break;
-                default:
-                        return $words;
-                    break;
-            }
            
+            return $words.'only';
             
     }
 
