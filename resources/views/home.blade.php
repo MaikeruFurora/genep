@@ -201,9 +201,10 @@
         let ewTaxPercent    = $('select[name=ewTaxPercent]')
         let ewTax           = $('input[name=ewTax]')
                                 $('.datepicker').datepicker({
+                                    orientation: "bottom",
                                     language: "es",
                                     autoclose: true,
-                                    format: "mm/dd/yyyy"
+                                    format: "mm/dd/yyyy",
                                 });
         let datatbl         = $("#datatbl")
       const array           = []

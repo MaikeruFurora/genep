@@ -108,6 +108,7 @@
         .select2-results__options{
           font-size:11px !important;
         }
+        
     </style>
 
     <!-- Custom styles for this template -->
