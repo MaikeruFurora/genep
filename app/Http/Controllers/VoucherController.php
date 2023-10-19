@@ -7,6 +7,8 @@ use App\Models\CashVoucher;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CashVoucherExport;
+use App\Helper\Helper;
+use FPDM;
 use PDF;
 
 class VoucherController extends Controller
@@ -27,6 +29,41 @@ class VoucherController extends Controller
         $pdf = PDF::loadView('print/voucher-pdf',compact('cashVoucher'));
 
         return $pdf->stream('voucher-pdf.php');
+
+    }
+
+    public function printCheque(CashVoucher $cashVoucher){
+
+        $dateArr =  str_split(date("mdY",strtotime($cashVoucher->cvdate)));
+        // return explode("",);
+        $date = array(
+            'monthone'  =>null,
+            'monthtwo'  =>null,
+            'dayone'    =>null,
+            'daytwo'    =>null,
+            'yearone'   =>null,
+            'yeartwo'   =>null,
+            'yearthree' =>null,
+            'yearfour'  =>null,
+        );
+        $i=0;
+        foreach ($date as $key => $value) {
+            $date[$key]=$dateArr[$i];
+            ++$i;
+        }
+
+        $fields = array(
+            'name'      => $cashVoucher->bp_master_data->name,
+            'amount'    => number_format($cashVoucher->amount,2),
+            'word'      => strtoupper(Helper::numberToWord($cashVoucher->amount)),
+        );
+
+        $combine = array_merge($fields,$date);
+        
+        $pdf = new FPDM('file/cheque.pdf');
+        $pdf->Load($combine, true);
+        $pdf->Merge();
+        $pdf->Output();
 
     }
 

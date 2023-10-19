@@ -117,7 +117,7 @@
         </tr>
       </table>
       {{--  --}}
-      <table class="accnt_title" width="100%">
+      <table class="accnt_title" width="100%" style="margin-top: 10px">
           <tr>
             <td width="50%">Received By</td>
             <td width="40%" style="text-align:center">Prepared By</td>
@@ -125,7 +125,7 @@
           </tr>
       </table>
       {{--  --}}
-      <table class="accnt_title" width="100%">
+      <table class="accnt_title" width="100%" style="margin-top: 10px">
         <tr>
           <td width="50%">{{ $cashVoucher->bp_master_data->name ?? $cashVoucher->payment_others  }}</td>
           <td></td>

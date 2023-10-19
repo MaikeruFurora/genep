@@ -37,6 +37,7 @@ Route::middleware(['auth:web','auth.user','preventBackHistory'])->name('authenti
     //voucher
     Route::get('voucher',[VoucherController::class,'index'])->name('voucher');
     Route::get('voucher/print/{cashVoucher}',[VoucherController::class,'printCV'])->name('voucher.print');
+    Route::get('cheque/print/{cashVoucher}',[VoucherController::class,'printCheque'])->name('cheque.print');
     Route::get('voucher/download-summary',[VoucherController::class,'downloadSummary'])->name('voucher.download.summary');
 
     //branch

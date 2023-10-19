@@ -1,6 +1,7 @@
 const Config = {
     tbl:$("#datatable"),
-    printURL: $("meta[name='printURL']").attr("content"),
+    prinVoucher: $("meta[name='prinVoucher']").attr("content"),
+    printCheque: $("meta[name='printCheque']").attr("content"),
     loadToPrint:(url) =>{
         $("<iframe>")             // create a new iframe element
             .hide()               // make it invisible
