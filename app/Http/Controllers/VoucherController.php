@@ -32,7 +32,7 @@ class VoucherController extends Controller
 
     }
 
-    public function printCheque(CashVoucher $cashVoucher){
+    public function printCheque(CashVoucher $cashVoucher,$type){
 
         $dateArr =  str_split(date("mdY",strtotime($cashVoucher->cvdate)));
         // return explode("",);
@@ -60,7 +60,7 @@ class VoucherController extends Controller
 
         $combine = array_merge($fields,$date);
         
-        $pdf = new FPDM('file/cheque.pdf');
+        $pdf = new FPDM('file/cheque-'.$type.'.pdf');
         $pdf->Load($combine, true);
         $pdf->Merge();
         $pdf->Output();

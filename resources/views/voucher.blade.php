@@ -40,6 +40,7 @@
         </table>
     </div>
 </div>
+@include('modal.modal-cheque')
 @include('modal.modal-report-filter',['branchList'=>$branchList])
 @endsection
 @section('moreJS')
@@ -49,8 +50,8 @@
     <script>
         $('.amount-format').number( true, 4 );
         
-          let modalForm       = $("#modalForm")
-          let datatbl         = $("#datatbl")
+        let modalForm         = $("#modalForm")
+        let datatbl           = $("#datatbl")
         const cashVoucherList = @json($cashVoucherList);
         const array           = []
         $('.datepicker').datepicker({
@@ -135,7 +136,7 @@
                 { 
                     data:null,
                     render:function(data){
-                        return data.checkno!=null?`<a href="${Config.printCheque.replace(":cv",data.id)}" target='_blank'>${data.checkno}</a>`:''
+                        return data.checkno!=null?`<button data-toggle="modal" data-target="#modalCheque" class="btn btn-link" style="font-size:11px" name="checkNo" value="${data.id}">${data.checkno}</button>`:''
                     }
                 },
                 { 
@@ -170,6 +171,14 @@
             setTimeout(() => {
                 $(this)[0].reset()
             }, 2000);
+        })
+        
+        $("button[name=checkNo]").on('click',function(){
+            $("#ChequeForm").find("input[name=id]").val($(this).val())
+        })
+        $("#ChequeForm").find("button[type=submit]").on('click',function(e){
+            e.preventDefault()
+            window.open(Config.printCheque.replace(":cv",$("#ChequeForm").find("input[name=id]").val()).replace(":type",$("#ChequeForm").find("select[name=type]").val()), '_blank');
         })
     </script>
 @endsection

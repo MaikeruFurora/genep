@@ -16,7 +16,7 @@
                 @if (session()->has('msg'))
                     <div class="alert alert-{{ session()->get('action') ?? 'success' }} mt-3" role="alert"
                         data-voucher="{{ route("authenticated.voucher.print",":cv") }}"
-                        data-cheque="{{ route("authenticated.cheque.print",":cv") }}"
+                        data-cheque="{{ route("authenticated.cheque.print",[":cv",":type"]) }}"
                         >
                         <i class="fas fa-check-circle"></i> {{ session()->get('msg') }}
                     </div>
@@ -213,7 +213,7 @@
 
             if (printValue!="") {
                 if (checkno) {
-                    window.open(Config.printCheque.replace(":cv",printValue), '_blank');
+                    window.open(Config.printCheque.replace(":cv",printValue).replace(":type",'bdo'), '_blank');
                 }
                 window.open(Config.prinVoucher.replace(":cv",printValue), '_blank');
             }
