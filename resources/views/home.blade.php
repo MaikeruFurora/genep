@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table text-center table-bordered">
+                    <table class="table text-center table-bordered mb-1">
                         <tr>
                             <td width="50%">PARTICULARS</td>
                             <td>AMOUNT</td>
@@ -97,6 +97,11 @@
                             </td>
                         </tr>
                     </table>
+                    <ul class="list-inline m-0" style="font-size: 10px">
+                        <li class="list-inline-item"><span class="text-primary font-weight-bold">EX</span> - EXEMPT TRANSACTIONS</li>
+                        <li class="list-inline-item"><span class="text-primary font-weight-bold">VTS</span> - VATABLE TRANSACTIONS - SERVICES</li>
+                        <li class="list-inline-item"><span class="text-primary font-weight-bold">VTP</span> - VATABLE TRANSACTIONS - PURCHASES</li>
+                      </ul>
                     <table class="table mt-2 table-bordered mb-0">
                             <tr>
                                 <td>Account Title</td>
@@ -159,6 +164,7 @@
                                 </td>
                             </tr>
                     </table>
+                    
                     <table class="table mt-2 table-bordered mb-0" id="datatbl">
                         <thead class="bg-secondary text-white">
                             <tr>
