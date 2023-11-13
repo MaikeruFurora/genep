@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CashVoucherExport;
 use App\Helper\Helper;
+use App\Models\BPMasterData;
 use FPDM;
 use PDF;
 
@@ -15,8 +16,9 @@ class VoucherController extends Controller
 {
     public function index(){
         $branchList         = Branch::get(['id','name']);
+        $bpMasterList       = BPMasterData::get(['id','name']);
         $cashVoucherList    = CashVoucher::with('cashvoucher_detail','cashvoucher_detail.chart_account','branch','branch.company','bp_master_data')->get();
-        return view('voucher',compact('cashVoucherList','branchList'));
+        return view('voucher',compact('cashVoucherList','branchList','bpMasterList'));
     }
 
     public function printCV(CashVoucher $cashVoucher){

@@ -12,7 +12,7 @@
     <link href="{{ asset('assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/alertify/css/alertify.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-table/bootstrap-table.min.css') }}">
 
     <link href="{{ asset('assets/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -20,9 +20,8 @@
     <link href="{{ asset('assets/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/datatables/searchBuilder.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/datatables/dataTables.dateTime.min.css') }}" rel="stylesheet" type="text/css" />
-
     {{-- select --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('assets/select2/select2.min.css') }}" rel="stylesheet" />
     @yield('moreCSS')
 
     <style>
@@ -158,9 +157,10 @@
     <script src="{{ asset('assets/js/moment.js') }}"></script>
     <script src="{{ asset('assets/global.js') }}"></script>
     <script src="{{ asset('assets/alertify/js/alertify.js') }}"></script>
+     {{-- select --}}
+    <script src="{{ asset('assets/select2/select2.min.js') }}"></script>
     
-    
-    <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+    <script src="{{ asset('assets/bootstrap-table/bootstrap-table.min.js') }}"></script>
     <!-- Required datatable js -->
     <script src="{{ asset('assets/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -174,9 +174,7 @@
     <script src="{{ asset('assets/datatables/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.searchBuilder.min.js') }}"></script>
     <script src="{{ asset('assets/datatables/dataTables.dateTime.min.js') }}"></script>
-    {{-- select --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+   
     @yield('moreJS')
       
   </body>
